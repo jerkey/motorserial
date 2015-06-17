@@ -4,16 +4,19 @@
 
 #include <AFMotor.h>
 
-AF_DCMotor motor(4);
+AF_DCMotor motor1(1);
+AF_DCMotor motor2(2);
 
 void setup() {
   Serial.begin(9600);           // set up Serial library at 9600 bps
   Serial.println("Motor test!");
 
   // turn on motor
-  motor.setSpeed(200);
+  motor1.setSpeed(255);
+  motor2.setSpeed(255);
  
-  motor.run(RELEASE);
+  motor1.run(RELEASE);
+  motor2.run(RELEASE);
 }
 
 void loop() {
@@ -21,32 +24,20 @@ void loop() {
   
   Serial.print("tick");
   
-  motor.run(FORWARD);
-  for (i=0; i<255; i++) {
-    motor.setSpeed(i);  
-    delay(10);
- }
+  motor1.run(FORWARD);
+  motor2.run(FORWARD);
  
-  for (i=255; i!=0; i--) {
-    motor.setSpeed(i);  
-    delay(10);
- }
+  delay(1000);
   
   Serial.print("tock");
 
-  motor.run(BACKWARD);
-  for (i=0; i<255; i++) {
-    motor.setSpeed(i);  
-    delay(10);
- }
+  motor1.run(BACKWARD);
+  motor2.run(BACKWARD);
  
-  for (i=255; i!=0; i--) {
-    motor.setSpeed(i);  
-    delay(10);
- }
-  
+  delay(1000);
 
   Serial.print("tech");
-  motor.run(RELEASE);
+  motor1.run(RELEASE);
+  motor2.run(RELEASE);
   delay(1000);
 }
