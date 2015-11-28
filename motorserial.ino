@@ -1,7 +1,7 @@
 #include <AFMotor.h>
 
-#define TIMEOUTX 1000 // how long motor runs before it times out
-#define TIMEOUTY 1000 // how long motor runs before it times out
+#define TIMEOUTX 500 // how long motor runs before it times out
+#define TIMEOUTY 500 // how long motor runs before it times out
 #define MOTORSPEED 255 // default motor speed
 
 AF_DCMotor motorX(1);
@@ -29,6 +29,7 @@ void loop() {
 
   if (Serial.available() > 0) {
     inByte = Serial.read();
+    Serial.print(inByte);
     if (inByte == 'a') {
       motorX.run(BACKWARD);
       lastX = timeNow;
