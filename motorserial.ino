@@ -2,7 +2,7 @@
 
 #define TIMEOUTX 500 // how long motor runs before it times out
 #define TIMEOUTY 500 // how long motor runs before it times out
-#define MOTORSPEED 255 // default motor speed
+int motorSpeed = 255; // default motor speed
 
 AF_DCMotor motorX(1);
 AF_DCMotor motorY(2);
@@ -16,9 +16,11 @@ char inByte;
 void setup() {
   Serial.begin(9600);
   Serial.println("motorserial lets you control two motors with adws as arrowkeys");
+  Serial.println("= to raise motor speed, - to lower it");
+  Serial.println("motorSpeed is now at "+String(motorSpeed));
 
-  motorX.setSpeed(MOTORSPEED);
-  motorY.setSpeed(MOTORSPEED);
+  motorX.setSpeed(motorSpeed);
+  motorY.setSpeed(motorSpeed);
 
   motorX.run(RELEASE);
   motorY.run(RELEASE);
@@ -46,6 +48,18 @@ void loop() {
       motorY.run(BACKWARD);
       lastY = timeNow;
     } else {
+    if (inByte == '=') {
+      motorSpeed = constrain(motorSpeed + 5,1,255);
+      Serial.println(motorSpeed);
+      motorX.setSpeed(motorSpeed);
+      motorY.setSpeed(motorSpeed);
+    } else
+    if (inByte == '-') {
+      motorSpeed = constrain(motorSpeed - 5,1,255);
+      Serial.println(motorSpeed);
+      motorX.setSpeed(motorSpeed);
+      motorY.setSpeed(motorSpeed);
+    } else
       motorX.run(RELEASE);
       motorY.run(RELEASE);
     }
